@@ -58,7 +58,7 @@ class TTSHandler(tornado.web.RequestHandler):
                 with open(filename, 'rb') as in_:
                     shutil.copyfileobj(in_, destination)
 
-        response = 'static/mp3/merged.mp3'
+        response = 'localhost/static/mp3/merged.mp3'
 
         self.redirect(response)
         #with open(response_file_name, "r") as response_file:
