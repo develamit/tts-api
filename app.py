@@ -58,7 +58,9 @@ class TTSHandler(tornado.web.RequestHandler):
                 with open(filename, 'rb') as in_:
                     shutil.copyfileobj(in_, destination)
 
-        self.redirect(response_file_name)
+        response = 'static/mp3/merged.mp3'
+
+        self.redirect(response)
         #with open(response_file_name, "r") as response_file:
             #self.write(response_file.read())
             # delete file
