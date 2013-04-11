@@ -1,7 +1,7 @@
 tts-api
 =======
 
-tts-api is an API interface for Google Translate's text-to-speech.
+tts-api is an API for Google Translate's text-to-speech functionality.
 
 Google Translate imposes a 100 character limit on input text; tts-api accepts text of arbitrary length. 
 
@@ -10,6 +10,20 @@ tts-api:
 split on clause boundaries or other natural pauses.
 * strips the initial silence from the retrieved .mp3's.
 * concatenates the .mp3's and redirects the request to the file.
+
+
+Dependencies
+------------
+
+* python 2.7
+* tornado
+* sox
+
+Installation:
+
+    sudo apt-get install python-pip sox libsox-fmt-mp3
+    sudo pip install tornado
+
 
 
 Running tts-api
