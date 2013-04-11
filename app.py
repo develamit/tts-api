@@ -67,11 +67,9 @@ class TTSHandler(tornado.web.RequestHandler):
                     shutil.copyfileobj(in_, destination)
 
         for file_name in trimmed_names:
-            remove_path = base_path + '/' + file_name
-            remove(remove_path)
+            remove(file_name)
         for file_name in raw_names:
-            remove_path = base_path + '/' + file_name
-            remove(remove_path)
+            remove(file_name)
 
         print joined_name
         self.redirect('/static/mp3/joined/' + joined_name + '.mp3')
