@@ -40,14 +40,16 @@ class TTSHandler(tornado.web.RequestHandler):
             raw_name = base_path + '/' + raw_name
             trimmed_name = 'static/mp3/%s_t.mp3' % name
             trimmed_name = base_path + '/' + trimmed_name
+            print raw_name
+            print trimmed_name
 
             raw_file = open(raw_name, 'w')
             raw_file.write(tts_response.read())
             raw_file.close()
 
             sox_call = ['sox',
-                base_path + '/' + raw_name,
-                base_path + '/' + trimmed_name,
+                raw_name,
+                trimmed_name,
                 'silence', '1', '0', '-40d']
             return_code = subprocess.call(sox_call)
             if return_code != 0:
@@ -70,6 +72,8 @@ class TTSHandler(tornado.web.RequestHandler):
         for file_name in raw_names:
             remove_path = base_path + '/' + file_name
             remove(remove_path)
+
+        print joined_name
         self.redirect('/static/mp3/joined/' + joined_name + '.mp3')
 
 
