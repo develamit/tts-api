@@ -6,7 +6,7 @@
 import urllib2
 from urllib import quote_plus
 import shutil
-from os import urandom
+from os import urandom, remove
 import subprocess
 from os.path import dirname, realpath, join
 import tornado.web
@@ -31,6 +31,7 @@ class TTSHandler(tornado.web.RequestHandler):
         segments = [quote_plus(s) for s in segments]
 
         trimmed_names = []
+        raw_names = []
         for segment in segments:
             name = hexlify(urandom(16))
             #try:
@@ -49,7 +50,7 @@ class TTSHandler(tornado.web.RequestHandler):
             return_code = subprocess.call(sox_call)
             if return_code != 0:
                 print 'error'
-
+            raw_names.append(raw_name)
             trimmed_names.append(trimmed_name)
 
         # Cat the parts
@@ -61,6 +62,12 @@ class TTSHandler(tornado.web.RequestHandler):
                 with open(file_name, 'rb') as in_:
                     shutil.copyfileobj(in_, destination)
 
+        for file_name in trimmed_names:
+            remove_path = dirname(realpath(__file__)) + '/' + file_name
+            remove(remove_path)
+        for file_name in raw_names:
+            remove_path = dirname(realpath(__file__)) + '/' + file_name
+            remove(remove_path)
         self.redirect('/static/mp3/joined/' + joined_name + '.mp3')
 
 
