@@ -15,6 +15,7 @@ from tornado.options import define, options
 from text_segmenter import get_segments
 from binascii import hexlify
 
+
 class TTSHandler(tornado.web.RequestHandler):
     def get(self):
         joined_name = hexlify(urandom(16))
@@ -43,14 +44,13 @@ class TTSHandler(tornado.web.RequestHandler):
 
             sox_call = ['sox',
                 dirname(realpath(__file__)) + '/' + raw_name,
-                dirname(realpath(__file__)) + '/'+ trimmed_name,
+                dirname(realpath(__file__)) + '/' + trimmed_name,
                 'silence', '1', '0', '-40d']
             return_code = subprocess.call(sox_call)
             if return_code != 0:
                 print 'error'
 
             trimmed_names.append(trimmed_name)
-
 
         # Cat the parts
         PATH = dirname(realpath(__file__)) + '/static/mp3/joined/'
@@ -61,7 +61,7 @@ class TTSHandler(tornado.web.RequestHandler):
                 with open(file_name, 'rb') as in_:
                     shutil.copyfileobj(in_, destination)
 
-        self.redirect(response_file_name)
+        self.redirect('/static/mp3/joined/' + joined_name + '.mp3')
 
 
 handlers = [
