@@ -8,16 +8,19 @@ def get_segments(text):
     tokens = word_tokenize(text)
     segment = ''
     added = False
-    for token in tokens:
+    for index, token in enumerate(tokens):
+        print 'looking at token', token
+        print 'index', index, 'of', len(tokens)
         if len(segment + token) < 99:
             if match(r"[^\w\s]", token) is None and token != "n't":
                 segment += ' '
             segment += token
             added = False
         else:
-            added = True
+            if index + 1 < len(tokens):
+                added = True
             segments.append(segment)
-            segment = ''
+            segment = token
     if not added:
         segments.append(segment)
 
