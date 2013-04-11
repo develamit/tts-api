@@ -37,7 +37,9 @@ class TTSHandler(tornado.web.RequestHandler):
             #try:
             tts_response = opener.open(base_url + segment)
             raw_name = 'static/mp3/%s_r.mp3' % name
+            raw_name = base_path + '/' + raw_name
             trimmed_name = 'static/mp3/%s_t.mp3' % name
+            trimmed_name = base_path + '/' + trimmed_name
 
             raw_file = open(raw_name, 'w')
             raw_file.write(tts_response.read())
