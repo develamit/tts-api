@@ -10,7 +10,7 @@ def get_segments(text):
     added = False
     for token in tokens:
         if len(segment + token) < 99:
-            if match(r"[^\w\s]", token) is None:
+            if match(r"[^\w\s]", token) is None and token != "n't":
                 segment += ' '
             segment += token
             added = False
