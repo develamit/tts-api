@@ -8,7 +8,7 @@ from urllib import quote_plus
 import shutil
 from os import urandom, remove
 import subprocess
-from os.path import dirname, realpath, join
+from os.path import dirname, join
 import tornado.web
 import tornado.ioloop
 from tornado.options import define, options
@@ -44,8 +44,8 @@ class TTSHandler(tornado.web.RequestHandler):
             raw_file.close()
 
             sox_call = ['sox',
-                dirname(realpath(__file__)) + '/' + raw_name,
-                dirname(realpath(__file__)) + '/' + trimmed_name,
+                base_path + '/' + raw_name,
+                base_path + '/' + trimmed_name,
                 'silence', '1', '0', '-40d']
             return_code = subprocess.call(sox_call)
             if return_code != 0:
@@ -54,7 +54,7 @@ class TTSHandler(tornado.web.RequestHandler):
             trimmed_names.append(trimmed_name)
 
         # Cat the parts
-        PATH = dirname(realpath(__file__)) + '/static/mp3/joined/'
+        PATH = base_path + '/static/mp3/joined/'
 
         response_file_name = PATH + joined_name + '.mp3'
         with open(response_file_name, 'wb') as destination:
@@ -63,10 +63,10 @@ class TTSHandler(tornado.web.RequestHandler):
                     shutil.copyfileobj(in_, destination)
 
         for file_name in trimmed_names:
-            remove_path = dirname(realpath(__file__)) + '/' + file_name
+            remove_path = base_path + '/' + file_name
             remove(remove_path)
         for file_name in raw_names:
-            remove_path = dirname(realpath(__file__)) + '/' + file_name
+            remove_path = base_path + '/' + file_name
             remove(remove_path)
         self.redirect('/static/mp3/joined/' + joined_name + '.mp3')
 
@@ -80,9 +80,12 @@ settings = dict(template_path=join(
     dirname(__file__), "templates"))
 application = tornado.web.Application(handlers, **settings)
 define("port", default=8007, help="run on the given port", type=int)
+define("static", default='/home/gavin/dev/tts-api',
+    help="set the path to /static/", type=str)
 
 if __name__ == "__main__":
     tornado.options.parse_command_line()
+    base_path = options.static
     application.listen(options.port)
     tornado.ioloop.IOLoop.instance().start()
 
