@@ -12,6 +12,20 @@ split on clause boundaries or other natural pauses.
 * concatenates the .mp3's and redirects the request to the file.
 
 
+Dependencies
+------------
+
+* python 2.7
+* tornado
+* sox
+
+Installation:
+
+  sudo apt-get install python-pip sox libsox-fmt-mp3
+  sudo pip install tornado
+
+
+
 Running tts-api
 ---------------
 
