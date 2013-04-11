@@ -1,7 +1,7 @@
 tts-api
 =======
 
-tts-api is an API interface for Google Translate's text-to-speech.
+tts-api is an API for Google Translate's text-to-speech functionality.
 
 Google Translate imposes a 100 character limit on input text; tts-api accepts text of arbitrary length. 
 
