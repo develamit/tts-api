@@ -21,8 +21,8 @@ Dependencies
 
 Installation:
 
-  sudo apt-get install python-pip sox libsox-fmt-mp3
-  sudo pip install tornado
+    sudo apt-get install python-pip sox libsox-fmt-mp3
+    sudo pip install tornado
 
 
 
