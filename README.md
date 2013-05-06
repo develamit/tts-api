@@ -32,9 +32,9 @@ Installation for Ubuntu 12.10/Mint 14
 Running tts-api
 ---------------
 
-  python app.py
+    python app.py
   
 This project requires an HTTP server to serve the .mp3's.
 For Nginx:
-* set 127.0.0.1:8007 as an upstream frontend
-* set the location of /static/ to /your/path/to/tts-api
+* set `127.0.0.1:8007` as an upstream frontend
+* set the location of `/static/` to `/your/path/to/tts-api`
