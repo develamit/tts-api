@@ -32,9 +32,20 @@ Installation for Ubuntu 12.10/Mint 14
 Running tts-api
 ---------------
 
+Run the application server with:
+
     python app.py
   
 This project requires an HTTP server to serve the .mp3's.
 For Nginx:
 * set `127.0.0.1:8007` as an upstream frontend
 * set the location of `/static/` to `/your/path/to/tts-api`
+
+To get the .mp3 for your text, send a `GET` request to `/tts` with your text as a parameter.
+
+    http://127.0.0.1:8007/tts?text=your%20text%20here
+    
+Your request wil result in a redirect to the .mp3 (sorry, not much error handling right now).
+
+If you run the application server without an HTTP server, the redirect will return 404. You can still find the
+complete .mp3 in tts-api/static/mp3/joined.
