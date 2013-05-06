@@ -15,15 +15,18 @@ split on clause boundaries or other natural pauses.
 Dependencies
 ------------
 
-* python 2.7
+* python 2.7.4
 * tornado
 * sox
+* NLTK. NLTK is a big dependency. Currently I only use it for tokenization, which is wasteful as the text processed
+by this app seldom require complex tokenization. However, I intend to change the segmentation from word boundaries to
+more natural pauses, like cause boundaries (like this one), which would require NLTK for shallow parsing, etc.
 
-Installation:
+Installation for Ubuntu 12.10/Mint 14
+-------------------------------------
 
-    sudo apt-get install python-pip sox libsox-fmt-mp3
+    sudo apt-get install python-pip sox python-nltk
     sudo pip install tornado
-
 
 
 Running tts-api
